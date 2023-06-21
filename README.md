@@ -1,4 +1,4 @@
-# Cloud Instance Provisioning through Terraform IaC
+# Cloud Instance Provisioning through Terraform IaC & Containerized Server Access Model
 ![image](https://github.com/devgprime/NodeAutomationBlockchain/assets/131144462/3df5774b-6ce4-45b3-a4a6-dfd3ed919869)
 
 # Setup
