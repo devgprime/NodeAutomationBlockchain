@@ -1,8 +1,8 @@
-# NodeAutomationBlockchain
+# Cloud Instance Provisioning through Terraform IaC
 ![image](https://github.com/devgprime/NodeAutomationBlockchain/assets/131144462/ac52be78-5fe1-4dea-802b-a2ae8d60c759)
 
-# BlockchainAutomation
-Project Setup
+
+# Setup
 To get started with the project, please follow these steps:
 
 Step 1: Installing Pre-requisites
