@@ -1,33 +1,21 @@
 # Automating the setup of Private Blockchain
 ![image](https://github.com/devgprime/NodeAutomationBlockchain/assets/131144462/08abad9b-eca9-4fcf-b764-b2f77149f61b)
 
-User Initiates Provisioning Request:
-The user initiates the provisioning request through a user interface or Azure Pipeline, specifying the desired node specifications and count.
+Request Provisioning: The user submits a provisioning request through a UI or Azure Pipeline. This request includes the desired node configurations and quantity.
 
-Terraform Provisioning:
-The request is passed to Terraform, which provisions the virtual machines (VMs) with the specified specifications using Azure APIs.
-Terraform also provisions the associated Virtual Networks (VNets), subnets, NSGs, and network interfaces.
+Infrastructure Provisioning - Terraform Setup: The provisioning request is processed by Terraform, which uses Azure APIs to set up the necessary virtual machines (VMs). Based on user input, VMs are configured with the appropriate specifications. Additional networking resources such as Virtual Networks (VNets), subnets, Network Security Groups (NSGs), and network interfaces are provisioned as required.
 
-Ansible Configuration Management:
-Once the VMs are provisioned, Ansible is triggered to perform configuration management.
-Ansible playbooks and roles are executed to configure the VMs with the required internal services such as Docker or Kubernetes.
+Configuration Management - Ansible Execution: Post the VM provisioning, Ansible is activated to manage the configuration of these machines. By executing a set of Ansible playbooks and roles, the VMs are equipped with necessary internal services like Docker or Kubernetes.
 
-Docker/Kubernetes Deployment:
-Using the specified cloud image repository, the Geth client image is deployed on each VM using Docker or Kubernetes.
-The image includes the necessary specifications like network ID, genesis block, boot nodes, and other network parameters.
+Docker/Kubernetes Deployment: Once VMs are prepared and services are set, the deployment phase begins. A Docker or Kubernetes image of the Geth client, which contains essential details like network ID, genesis block, boot nodes, and other network parameters, is pulled from a cloud image repository and deployed across each VM.
 
-Geth Client Startup:
-A startup script or service manager like systemd is used to start the Geth client on each VM, initiating the synchronization process with the private Ethereum network.
+Geth Client Initialization: With the image deployment complete, a startup script or a service manager (like systemd) is used to start up the Geth client on each machine. This triggers the synchronization process with the private Ethereum network.
 
-Validator Functionality Activation:
-With the Geth client running, the validator functionality is activated on each VM by submitting a staking transaction using the associated Ethereum account.
+Activating Validator Functionality: With the Geth client up and running, the validation process can be started. This is done by triggering a staking transaction from the Ethereum accounts associated with each node, thus activating their validator capabilities.
 
-Resource Monitoring and Alerting:
-Azure Monitor or Prometheus is configured to monitor the containers or pods running the Geth client on the VMs.
-Key metrics such as block propagation time, network latency, and resource utilization are monitored, and alerts are set up for any anomalies.
+Resource Supervision: Resource supervision is enabled using Azure Monitor or Prometheus to keep an eye on the containers or pods running the Geth client on the VMs. Essential metrics like block propagation time, network latency, and resource usage are tracked. Alerts are set up to notify in case of any significant deviations or anomalies.
 
-Private Key Storage and Retrieval:
-Azure Key Vault is utilized to securely store and retrieve the private keys associated with the Ethereum accounts used by the validator nodes.
+Private Key Storage and Management - Azure Key Vault: For secure handling of the private keys associated with Ethereum accounts of the validator nodes, Azure Key Vault is utilized. This provides a secure and reliable way to store and retrieve these critical keys.
 
 A user just needs to trigger the setup.sh script and it will take care of the entire setup.
 
