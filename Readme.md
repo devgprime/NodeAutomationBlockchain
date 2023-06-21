@@ -5,15 +5,17 @@ Request Provisioning: The user submits a provisioning request through a UI or Az
 
 Infrastructure Provisioning - Terraform Setup: The provisioning request is processed by Terraform, which uses Azure APIs to set up the necessary virtual machines (VMs). Based on user input, VMs are configured with the appropriate specifications. Additional networking resources such as Virtual Networks (VNets), subnets, Network Security Groups (NSGs), and network interfaces are provisioned as required.
 
-Configuration Management - Ansible Execution: Post the VM provisioning, Ansible is activated to manage the configuration of these machines. By executing a set of Ansible playbooks and roles, the VMs are equipped with necessary internal services like Docker or Kubernetes.
+Configuration Management - Ansible Execution: Post VM provisioning, Ansible is activated to manage the configuration of these machines. By executing a set of Ansible playbooks and roles, the VMs are equipped with necessary internal services like Docker or Kubernetes.
 
-Docker/Kubernetes Deployment: Once VMs are prepared and services are set, the deployment phase begins. A Docker or Kubernetes image of the Geth client, which contains essential details like network ID, genesis block, boot nodes, and other network parameters, is pulled from a cloud image repository and deployed across each VM.
+Image Building: After the configuration management step, the Docker or Kubernetes image of the Geth client is built. This involves creating a Dockerfile or Kubernetes manifest file that defines the necessary specifications, dependencies, and configurations. The image building process typically occurs locally or in a dedicated build environment.
 
-Geth Client Initialization: With the image deployment complete, a startup script or a service manager (like systemd) is used to start up the Geth client on each machine. This triggers the synchronization process with the private Ethereum network.
+Docker/Kubernetes Deployment: Once the image is built, it is pushed to a container registry or image repository. During the deployment phase, the pre-built image is pulled from the repository and deployed across each VM using Docker or Kubernetes. The image includes the required details like network ID, genesis block, boot nodes, and other network parameters.
 
-Activating Validator Functionality: With the Geth client up and running, the validation process can be started. This is done by triggering a staking transaction from the Ethereum accounts associated with each node, thus activating their validator capabilities.
+Geth Client Initialization: With the image deployed, a startup script or service manager (like systemd) is used to start the Geth client on each VM. This triggers the synchronization process with the private Ethereum network.
 
-Resource Supervision: Resource supervision is enabled using Azure Monitor or Prometheus to keep an eye on the containers or pods running the Geth client on the VMs. Essential metrics like block propagation time, network latency, and resource usage are tracked. Alerts are set up to notify in case of any significant deviations or anomalies.
+Activating Validator Functionality: With the Geth client up and running, the validation process can be started. This is done by triggering a staking transaction from the Ethereum accounts associated with each node, activating their validator capabilities.
+
+Resource Supervision: Resource supervision is enabled using Azure Monitor or Prometheus to monitor the containers or pods running the Geth client on the VMs. Essential metrics like block propagation time, network latency, and resource usage are tracked. Alerts are set up to notify in case of any significant deviations or anomalies.
 
 Private Key Storage and Management - Azure Key Vault: For secure handling of the private keys associated with Ethereum accounts of the validator nodes, Azure Key Vault is utilized. This provides a secure and reliable way to store and retrieve these critical keys.
 
