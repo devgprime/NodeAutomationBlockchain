@@ -11,6 +11,8 @@ Before proceeding, ensure that all the necessary pre-requisites are installed on
 
 Step 2: Azure Subscription (Optional)
 To proceed further and provision a vm, make sure you have an active Azure subscription. 
+
+You need to provide your IaC credentials into this provider.tf.
 Also to upload the docker image for the code you are using to the Azure Container Registry, Skip it if you don't want to use different image.
 If you already have an account running on portal.azure.com, you can skip this step. Otherwise, perform the following command to log in to your Azure account:
 
