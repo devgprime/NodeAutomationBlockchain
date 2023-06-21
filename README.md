@@ -1,6 +1,5 @@
 # Cloud Instance Provisioning through Terraform IaC
-![image](https://github.com/devgprime/NodeAutomationBlockchain/assets/131144462/ac52be78-5fe1-4dea-802b-a2ae8d60c759)
-
+![image](https://github.com/devgprime/NodeAutomationBlockchain/assets/131144462/3df5774b-6ce4-45b3-a4a6-dfd3ed919869)
 
 # Setup
 To get started with the project, please follow these steps:
@@ -29,7 +28,8 @@ Run the following command:
 
 ./apply.sh
 
-This script will internally call the necessary Terraform scripts to provision the virtual machine, install dependencies on the provisioned VM, pull the image from Azure cloud, and bring up the container on the VM.
+This script will internally call the necessary Terraform states to provision the virtual machine, and performs certain tasks at the backend
+-  install dependencies on the provisioned VM, pull the image from Azure cloud, and bring up the container on the VM.
 
 At the end of this process, a URL will be exposed, which will appear similar to the following (url will be a dynamic one):
 
