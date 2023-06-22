@@ -2,7 +2,7 @@
 ![image](https://github.com/devgprime/NodeAutomationBlockchain/assets/131144462/3df5774b-6ce4-45b3-a4a6-dfd3ed919869)
 
 # Setup
-To get started with the project, please follow these steps: Please consider using Terraform folder for this implementation
+To get started with the project, please follow these steps: Please consider using the outer terraform folder for this implementation
 
 Step 1: Installing Pre-requisites
 Before proceeding, ensure that all the necessary pre-requisites are installed on your host/local system. Run the following bash script using the command:
