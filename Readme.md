@@ -7,6 +7,10 @@ Initially a user just needs to run the script setup.sh through the command ./set
 
 Infrastructure Provisioning - Terraform Setup using the main.tf: The provisioning request is processed by Terraform, which uses Azure APIs to set up the necessary virtual machines (VMs). Based on user input, VMs are configured with the appropriate specifications. Additional networking resources such as Virtual Networks (VNets), subnets, Network Security Groups (NSGs), and network interfaces are provisioned as required. 
 
+terraform apply -var="specification=low"
+terraform apply -var="specification=medium"
+terraform apply -var="specification=high"
+
 Configuration Management - Ansible Execution: Post VM provisioning, By executing a set of Ansible playbooks and roles, the VMs are equipped with necessary internal services like Docker or Kubernetes through playbook.yml.
 
 Image Building: After the configuration management step, the Docker or Kubernetes image of the Geth client is built. This involves creating a Dockerfile or Kubernetes manifest file that defines the necessary specifications, dependencies, and configurations. The image building process typically occurs locally or in a dedicated build environment.
