@@ -16,10 +16,23 @@ resource "null_resource" "docker_installation" {
       "echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
       "sudo apt-get update",
       "sudo apt-get install -y docker-ce docker-ce-cli containerd.io",
-      "sudo docker login dgdevacr.azurecr.io -u dgdevacr -p L+c0UqIrjki09MKpplo3H/sNv+tKtl/4L+Dk2L/YjX+ACRD6OrMZ",
+
+      // Docker login with retry logic
+      "retries=5",
+      "until sudo docker login dgdevacr.azurecr.io -u dgdevacr -p ${var.docker_registry_password} || [ $retries -eq 0 ]; do",
+      "  echo 'Docker login failed. Retrying in 5 seconds...'",
+      "  retries=$((retries-1))",
+      "  sleep 5",
+      "done",
+      "if [ $retries -eq 0 ]; then",
+      "  echo 'Docker login failed after multiple attempts.'",
+      "  exit 1",
+      "fi",
+
       "sudo docker pull dgdevacr.azurecr.io/myapi",
-   
-      "timeout=180",  # 3 minutes timeout
+
+      // Timeout for pulling Docker image
+      "timeout=180",
       "start_time=$(date +%s)",
       "while [[ $(sudo docker images -q dgdevacr.azurecr.io/myapi) == '' ]]; do",
       "  echo 'Waiting for Docker image to be pulled...'",
@@ -32,9 +45,9 @@ resource "null_resource" "docker_installation" {
       "  fi",
       "done",
       "echo 'Docker image pulled successfully. Proceeding to run the image.'",
-      "timeout=4",
+
       "sudo docker run -p 3000:3000 -d dgdevacr.azurecr.io/myapi:latest",
-      "echo 'Running container on exposed port 3000' "
+      "echo 'Running container on exposed port 3000'"
     ]
   }
 }
