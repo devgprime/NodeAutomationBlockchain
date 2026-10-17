@@ -1,12 +1,6 @@
-#!/bin/bash
-
-# Script to orchestrate provisioning and setup process using Terraform and Ansible
-
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "${BASH_SOURCE[0]}")"
 terraform init
-
-terraform apply -auto-approve
-
-ansible-playbook -i inventory playbook.yml
-
-# Additional steps if needed (e.g., starting Geth client, activating validator functionality, etc.)
-
+terraform destroy "$@"
+printf 'Terraform destroy completed successfully.\n'

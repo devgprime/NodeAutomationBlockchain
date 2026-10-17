@@ -1,37 +1,25 @@
-# Cloud Instance Provisioning through Terraform IaC & Containerized Server Access Model
-![image](https://github.com/devgprime/NodeAutomationBlockchain/assets/131144462/3df5774b-6ce4-45b3-a4a6-dfd3ed919869)
+# Azure VM and container provisioning experiment
 
-# Setup
-To get started with the project, please follow these steps: Please consider using the outer terraform folder for this implementation
+Historical Terraform configuration for an Azure VM, networking and remote container setup. Existing resource names, SSH-key paths and provisioner settings are environment-specific; review them before deployment.
 
-Step 1: Installing Pre-requisites
-Before proceeding, ensure that all the necessary pre-requisites are installed on your host/local system. Run the following bash script using the command:
+## Workflow
 
-./install.sh
+With Terraform, Azure credentials and the referenced Azure resources configured:
 
-Step 2: Azure Subscription (Optional)
-To proceed further and provision a vm, make sure you have an active Azure subscription. 
+```bash
+bash terraform/apply.sh
+# After reviewing the destroy plan and confirming resource ownership:
+bash terraform/destroy.sh
+```
 
-You need to provide your IaC credentials into this provider.tf.
-Also to upload the docker image for the code you are using to the Azure Container Registry, Skip it if you don't want to use different image.
-If you already have an account running on portal.azure.com, you can skip this step. Otherwise, perform the following command to log in to your Azure account:
+Both scripts resolve their own directory, initialize Terraform and preserve Terraform's interactive approval. Additional Terraform arguments are passed through unchanged. A failed command stops the script and does not print a success message. The destroy script runs `terraform destroy`, not apply.
 
-az login --use-device-code
-sudo az acr login --name ImageName
+No cloud deployment was performed as part of repository maintenance. The configuration needs provider/version validation before reuse; a clean-machine installation script is not included.
 
-Step 3: Provisioning the Virtual Machine and Container
+## Offline regression checks
 
-This step involves provisioning a virtual machine and running a container on top of it. This container will communicate externally with Postman. Follow these instructions:
+```bash
+python3 -m unittest discover -s tests -v
+```
 
-Navigate to the terraform folder.
-Run the following command:
-
-./apply.sh
-
-This script will internally call the necessary Terraform states to provision the virtual machine, and performs certain tasks at the backend
--  install dependencies on the provisioned VM, pull the image from Azure cloud, and bring up the container on the VM.
-
-At the end of this process, a URL will be exposed, which will appear similar to the following (url will be a dynamic one):
-
-http://4.12.130.2:3000 - This URL will be used for further communication with the containerized application.
-
+Tests use a fake Terraform executable to verify command selection, working-directory handling, argument forwarding and failure propagation. They never contact Azure.
